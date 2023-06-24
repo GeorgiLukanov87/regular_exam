@@ -2,8 +2,12 @@
 {% block content %}
 
     <main>
-        <!-- Dashboard Page -->
+
         <h2>Fruits</h2>
+        {% if not fruits %}
+            <h2>No fruit info yet.</h2>
+        {% endif %}
+
         <section id="dashboard">
             <!-- Display a div "fruit" with information about each post (if any)-->
 
@@ -19,22 +23,9 @@
                 <a class="details-btn" href="#">More Info</a>
             </div>
 
-            <!-- second fruit -->
-            <div class="fruit">
-                <!-- fruit image -->
-                <img src="/static/images/fruit 2.png" alt="example1"/>
-                <!-- fruit name -->
-                <h3 class="title"> Kiwi</h3>
-                <!-- fruit description -->
-                <p>Kiwifruit (often shortened to kiwi in North Americ...</p>
-                <!-- fruit details button -->
-                <a class="details-btn" href="#">More Info</a>
-            </div>
 
         </section>
 
-        <!-- Display a heading if there are no posts -->
-        <h2>No fruit info yet.</h2>
 
     </main>
 

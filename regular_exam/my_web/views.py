@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 
 from regular_exam.my_web.forms import ProfileCreateForm
+from regular_exam.my_web.models import Fruit, Profile
+
+
+def get_profile():
+    return Profile.objects.first()
 
 
 def index(request):
@@ -8,7 +13,9 @@ def index(request):
 
 
 def dashboard(request):
-    return render(request, 'common/dashboard.html')
+    fruits = Fruit.objects.all()
+    context = {'fruits': fruits, }
+    return render(request, 'common/dashboard.html', context, )
 
 
 # FRUIT VIEWS:
@@ -52,4 +59,7 @@ def delete_profile(request):
 
 
 def details_profile(request):
-    return render(request, 'profile/details-profile.html')
+    profile = get_profile()
+    fruits = Fruit.objects.all()
+    context = {'profile': profile, 'fruits': fruits, }
+    return render(request, 'profile/details-profile.html', context, )
