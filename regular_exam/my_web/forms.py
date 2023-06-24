@@ -1,6 +1,6 @@
 from django import forms
 
-from regular_exam.my_web.models import Profile
+from regular_exam.my_web.models import Profile, Fruit
 
 
 class ProfileBaseForm(forms.ModelForm):
@@ -42,3 +42,33 @@ class ProfileCreateForm(ProfileBaseForm):
                 }
             ),
         }
+
+
+class ProfileEditForm(ProfileBaseForm):
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'image_url', 'age',)
+
+        labels = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'image_url': 'Image URL',
+            'age': 'Age',
+        }
+
+
+class ProfileDeleteForm(ProfileBaseForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+            Fruit.objects.all().delete()
+
+        return self.instance
+
+    class Meta:
+        model = Profile
+        fields = ()

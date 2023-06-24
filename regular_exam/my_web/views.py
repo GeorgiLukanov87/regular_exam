@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from regular_exam.my_web.forms import ProfileCreateForm
+from regular_exam.my_web.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm
 from regular_exam.my_web.models import Fruit, Profile
 
 
@@ -51,11 +51,34 @@ def create_profile(request):
 
 
 def edit_profile(request):
-    return render(request, 'profile/edit-profile.html')
+    profile = get_profile()
+
+    if request.method == 'GET':
+        form = ProfileEditForm(instance=profile)
+    else:
+        form = ProfileEditForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('details-profile')
+
+    context = {'form': form, }
+    return render(request, 'profile/edit-profile.html', context, )
 
 
 def delete_profile(request):
-    return render(request, 'profile/delete-profile.html')
+    profile = get_profile()
+
+    if request.method == 'GET':
+        form = ProfileDeleteForm(instance=profile)
+    else:
+        form = ProfileDeleteForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+
+    context = {'form': form, }
+
+    return render(request, 'profile/delete-profile.html', context)
 
 
 def details_profile(request):

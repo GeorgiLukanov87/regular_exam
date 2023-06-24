@@ -2,47 +2,19 @@
 {% block content %}
 
     <main>
-
-        <!-- Edit Profile Form -->
-
         <section id="register">
             <div class="form">
                 <h2>Edit Profile</h2>
-                <form class="register-form">
-                    <label for="first-name">First Name:</label>
-                    <input
-                            type="text"
-                            name="first name"
-                            id="first-name"
-                            value="Mariya"
-                    />
-                    <label for="last-name">Last Name:</label>
-                    <input
-                            type="text"
-                            name="last name"
-                            id="last-name"
-                            value="Petrova"
-                    />
-                    <label for="url">Image URL:</label>
-                    <input
-                            type="url"
-                            name="url"
-                            id="url"
-                            value="https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg"
-                    />
-                    <label for="age">Age:</label>
-                    <input
-                            type="number"
-                            name="age"
-                            id="age"
-                            value="18"
-                    />
+                <form class="register-form" method="post" action="{% url 'edit-profile' %}">
+
+                    {{ form }}
+                    {% csrf_token %}
+
                     <button type="submit">Edit</button>
 
                 </form>
             </div>
         </section>
-
     </main>
 
 {% endblock %}

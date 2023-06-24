@@ -1,39 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
     <main>
         <section id="details">
             <div id="details-wrapper">
                 <h2>Profile Details</h2>
-                <!-- if the user has a profile image -->
-                <img id="details-img" src="https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg"
-                     alt="profile img"/>
 
-                <!-- if the user has NO profile image -->
-                <img id="details-img" src="/static/images/default.jpg" alt="profile img"/>
+                {% if profile.image_url %}
+                    <img id="details-img" src="{{ profile.image_url }}"
+                         alt="profile img"/>
+                {% else %}
+                    <img id="details-img" src="{% static 'images/default.jpg' %}" alt="profile img"/>
+                {% endif %}
 
-                <!-- user's full name -->
-                <p id="details-title">Mariya Petrova</p>
+                <p id="details-title">{{ profile.first_name }} {{ profile.last_name }}</p>
 
                 <div id="info-wrapper">
                     <div id="details-description">
-                        <!-- email -->
                         <p>
-                            mariya@abv.bg
+                            {{ profile.email }}
                         </p>
-                        <!-- age -->
-                        <p>
-                            Age: 18
-                        </p>
-                        <!-- number of posts -->
-                        <p id="nutrition">Posts: 3</p>
 
+                        <p>
+                            Age: {{ profile.age }}
+                        </p>
+
+                        <p id="nutrition">Posts: {{ fruits.count }}</p>
                     </div>
 
-                    <!--Edit and Delete buttons -->
                     <div id="action-buttons">
-                        <a href="#" id="edit-btn">Edit</a>
-                        <a href="#" id="delete-btn">Delete</a>
+                        <a href="{% url 'edit-profile' %}" id="edit-btn">Edit</a>
+                        <a href="{% url 'delete-profile' %}" id="delete-btn">Delete</a>
                     </div>
                 </div>
             </div>
