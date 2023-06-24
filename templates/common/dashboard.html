@@ -2,9 +2,10 @@
 {% block content %}
 
     <main>
-        <h2>Fruits</h2>
         {% if not fruits %}
             <h2>No fruit info yet.</h2>
+        {% else %}
+            <h2>Fruits</h2>
         {% endif %}
 
         <section id="dashboard">
