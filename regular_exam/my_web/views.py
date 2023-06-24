@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from regular_exam.my_web.forms import ProfileCreateForm
 
 
 def index(request):
@@ -28,7 +30,17 @@ def delete_fruit(request, pk):
 
 # PROFILE VIEWS:
 def create_profile(request):
-    return render(request, 'profile/create-profile.html')
+    if request.method == 'GET':
+        form = ProfileCreateForm()
+    else:
+        form = ProfileCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+
+    context = {'form': form, }
+
+    return render(request, 'profile/create-profile.html', context, )
 
 
 def edit_profile(request):
