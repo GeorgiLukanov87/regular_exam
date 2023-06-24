@@ -72,3 +72,44 @@ class ProfileDeleteForm(ProfileBaseForm):
     class Meta:
         model = Profile
         fields = ()
+
+
+class FruitBaseForm(forms.ModelForm):
+    class Meta:
+        model = Fruit
+        fields = '__all__'
+
+
+class FruitCreateForm(FruitBaseForm):
+    class Meta:
+        model = Fruit
+        fields = ('name', 'image_url', 'description', 'nutrition',)
+        labels = {
+            'name': '',
+            'image_url': '',
+            'description': '',
+            'nutrition': '',
+        }
+
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Fruit Name'
+                }
+            ),
+            'image_url': forms.URLInput(
+                attrs={
+                    'placeholder': 'Fruit Image URL'
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'placeholder': 'Fruit Description'
+                }
+            ),
+            'nutrition': forms.Textarea(
+                attrs={
+                    'placeholder': 'Nutrition Info'
+                }
+            ),
+        }

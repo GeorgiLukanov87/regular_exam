@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from regular_exam.my_web.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm
+from regular_exam.my_web.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm, FruitCreateForm
 from regular_exam.my_web.models import Fruit, Profile
 
 
@@ -20,7 +20,17 @@ def dashboard(request):
 
 # FRUIT VIEWS:
 def create_fruit(request):
-    return render(request, 'fruit/create-fruit.html')
+    if request.method == 'GET':
+        form = FruitCreateForm()
+    else:
+        form = FruitCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+
+    context = {'form': form, }
+
+    return render(request, 'fruit/create-fruit.html', context, )
 
 
 def details_fruit(request, pk):
@@ -77,12 +87,12 @@ def delete_profile(request):
             return redirect('index')
 
     context = {'form': form, }
-
     return render(request, 'profile/delete-profile.html', context)
 
 
 def details_profile(request):
     profile = get_profile()
     fruits = Fruit.objects.all()
+
     context = {'profile': profile, 'fruits': fruits, }
     return render(request, 'profile/details-profile.html', context, )
