@@ -3,6 +3,7 @@ from django import forms
 from regular_exam.my_web.models import Profile, Fruit
 
 
+# PROFILE FORMS:
 class ProfileBaseForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -115,6 +116,7 @@ class FruitCreateForm(FruitBaseForm):
         }
 
 
+# FRUIT FORMS:
 class FruitEditForm(FruitBaseForm):
     class Meta:
         model = Fruit
