@@ -2,44 +2,18 @@
 {% block content %}
 
     <main>
-
-        <!-- Delete Fruit Form -->
         <section id="edit">
-
             <div class="form">
                 <h2>Delete Fruit</h2>
-                <form class="edit-form">
-                    <label for="name">Name:</label>
-                    <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            value="Pineapple"
-                            disabled="disabled" readonly="readonly" required=""
-                    />
-                    <label for="Fruit-image">Image URL:</label>
-                    <input
-                            type="url"
-                            name="imageUrl"
-                            id="Fruit-image"
-                            value="https://pineapple-fruit-image.jpeg"
-                            disabled="disabled" readonly="readonly" required=""
-                    />
-                    <label for="fruit-description">Description:</label>
-                    <textarea
-                            id="fruit-description"
-                            name="description"
-                            rows="10"
-                            cols="50"
-                            disabled="disabled" readonly="readonly" required=""
-                    >The pineapple is a tropical plant with an edible fruit. It is the most economically significant plant in the family Bromeliaceae. The pineapple is indigenous to South America. Pineapples grow as a small shrub, the individual flowers of the unpollinated plant fuse to form a multiple fruit. The plant is normally propagated from the offset produced at the top of the fruit, or from a side shoot, and typically matures within a year.</textarea>
+                <form class="edit-form" method="post" action="{% url 'delete-fruit' pk=fruit.pk %}">
+
+                    {{ form }}
+                    {% csrf_token %}
 
                     <button type="submit">Delete</button>
                 </form>
             </div>
-
         </section>
-
     </main>
 
 {% endblock %}

@@ -136,3 +136,7 @@ class FruitDeleteForm(FruitBaseForm):
             field.widget.attrs['disabled'] = True
             field.widget.attrs['readonly'] = True
             field.required = False
+
+    class Meta:
+        model = Fruit
+        fields = ('name', 'image_url', 'description',)
