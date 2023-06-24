@@ -2,48 +2,30 @@
 {% block content %}
 
     <main>
-
-        <!-- Fruit Details -->
         <section id="details">
             <div id="details-wrapper">
-                <!-- fruit image -->
-                <img id="details-img" src="/static/images/fruit 1.png" alt="example1"/>
-                <!-- fruit name -->
-                <p id="details-title">Pineapple</p>
+                <img id="details-img" src="{{ fruit.image_url }}" alt="fruit image"/>
+                <p id="details-title">{{ fruit.name }}</p>
                 <div id="info-wrapper">
                     <div id="details-description">
-                        <!-- fruit description -->
+
                         <p>
-                            The pineapple is a tropical plant with an edible fruit.
-                            It is the most economically significant plant in the family Bromeliaceae.The
-                            pineapple is indigenous to South America.
-                            Pineapples grow as a small shrub, the individual flowers of the unpollinated plant
-                            fuse to form a multiple fruit. The plant is normally propagated from the offset produced
-                            at the top of the fruit,or from a side shoot, and typically matures within a year.
+                            {{ fruit.description }}
                         </p>
-                        <!-- fruit nutrition -->
+
                         <p id="nutrition">Nutrition</p>
-                        <!-- fruit nutrition details -->
                         <p id="details-nutrition">
-                            Raw pineapple pulp is 86% water, 13% carbohydrates, 0.5% protein, and contains negligible
-                            fat (table).
-                            In a 100-gram reference amount, raw pineapple supplies 209 kilojoules (50 kilocalories) of
-                            food energy,
-                            and is a rich source of manganese (44% Daily Value, DV) and vitamin C (58% DV), but
-                            otherwise contains
-                            no micronutrients in significant amounts.
+                            {{ fruit.nutrition }}
                         </p>
                     </div>
 
-                    <!--Edit and Delete buttons -->
                     <div id="action-buttons">
-                        <a href="#" id="edit-btn">Edit</a>
-                        <a href="#" id="delete-btn">Delete</a>
+                        <a href="{% url 'edit-fruit' pk=fruit.pk %}" id="edit-btn">Edit</a>
+                        <a href="{% url 'delete-fruit' pk=fruit.pk %}" id="delete-btn">Delete</a>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
 {% endblock %}

@@ -113,3 +113,26 @@ class FruitCreateForm(FruitBaseForm):
                 }
             ),
         }
+
+
+class FruitEditForm(FruitBaseForm):
+    class Meta:
+        model = Fruit
+        fields = '__all__'
+
+
+class FruitDeleteForm(FruitBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__disable_fields()
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+        return self.instance
+
+    def __disable_fields(self):
+        for field in self.fields.values():
+            field.widget.attrs['disabled'] = True
+            field.widget.attrs['readonly'] = True
+            field.required = False

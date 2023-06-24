@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 
-from regular_exam.my_web.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm, FruitCreateForm
+from regular_exam.my_web.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm, FruitCreateForm, \
+    FruitEditForm, FruitDeleteForm
 from regular_exam.my_web.models import Fruit, Profile
 
 
 def get_profile():
     return Profile.objects.first()
+
+
+def get_fruit(pk):
+    return Fruit.objects.filter(pk=pk).get()
 
 
 def index(request):
@@ -26,7 +31,7 @@ def create_fruit(request):
         form = FruitCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('dashboard')
 
     context = {'form': form, }
 
@@ -34,15 +39,41 @@ def create_fruit(request):
 
 
 def details_fruit(request, pk):
-    return render(request, 'fruit/details-fruit.html')
+    fruit = get_fruit(pk)
+    context = {'fruit': fruit, }
+    return render(request, 'fruit/details-fruit.html', context, )
 
 
 def edit_fruit(request, pk):
-    return render(request, 'fruit/edit-fruit.html')
+    fruit = get_fruit(pk)
+
+    if request.method == 'GET':
+        form = FruitEditForm(instance=fruit)
+    else:
+        form = FruitEditForm(request.POST, instance=fruit)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+
+    context = {'form': form, 'fruit': fruit, }
+
+    return render(request, 'fruit/edit-fruit.html', context)
 
 
 def delete_fruit(request, pk):
-    return render(request, 'fruit/delete-fruit.html')
+    fruit = get_fruit(pk)
+
+    if request.method == 'GET':
+        form = FruitDeleteForm(instance=fruit)
+    else:
+        form = FruitDeleteForm(request.POST, instance=fruit)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+
+    context = {'form': form, 'fruit': fruit, }
+
+    return render(request, 'fruit/delete-fruit.html', context, )
 
 
 # PROFILE VIEWS:
