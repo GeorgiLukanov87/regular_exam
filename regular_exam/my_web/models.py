@@ -42,6 +42,7 @@ class Profile(models.Model):
         validators=[
             validators.MinLengthValidator(PROFILE_LAST_NAME_MIN_LEN, message=LAST_NAME_ERROR_MSG_MIN_LEN),
             validate_name_starts_with_letter,
+
         ]
     )
 
@@ -87,3 +88,4 @@ class Fruit(models.Model):
         blank=True,
         null=True,
     )
+
